@@ -1,14 +1,14 @@
-"use client"; // Add this at the top to ensure it's treated as a Client Component
+"use client"; // Ensure this is a Client Component
 
-import { useState } from "react";
-import { useRouter } from "next/navigation"; // Use the updated 'next/navigation' for routing in Next.js 13+
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "./firebase"; // Import your Firestore database
-import Image from "next/image";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation'; // Use Next.js router for navigation
+import Image from 'next/image';
+
+const apiRoot = 'https://api-vnbjtid72q-lz.a.run.app'; // Define the API root
 
 export default function Home() {
-  const [churchName, setChurchName] = useState("");
-  const router = useRouter(); // Use the 'next/navigation' version for routing
+  const [churchName, setChurchName] = useState('');
+  const router = useRouter(); // For routing to another page
 
   const handleLaunchSession = async () => {
     if (!churchName) {
@@ -16,17 +16,34 @@ export default function Home() {
       return;
     }
 
+    // Generate a timestamp using the current date/time
+    const timestamp = new Date().toISOString();
+
     try {
-      // Add a new document to the "games" collection
-      await addDoc(collection(db, "games"), {
-        church: churchName,
-        start: new Date(), // Automatically adds the current date/time
+      console.log("Sending data to the API...");
+
+      // Make a POST request to the create-game endpoint
+      const response = await fetch(`${apiRoot}/create-game`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          church: churchName,  // Send church name in the request body
+          start: timestamp,    // Send the timestamp
+        }),
       });
 
-      // Redirect to another page after the document is added
-      router.push("/session"); // Assuming you have a '/session' page
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Game created:", data);
+        // Redirect to another page after successful API request
+        router.push('/session');
+      } else {
+        console.error("Failed to create game");
+      }
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.error("Error sending data to the API:", error);
     }
   };
 
@@ -35,10 +52,10 @@ export default function Home() {
       <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black opacity-50 animate-gradient"></div>
       <div className="relative z-10 text-center">
         {/* Logo Image */}
-        <Image
+        <Image 
           src="/logo.png" // Your logo in the public folder
           alt="Operation Gibraltar"
-          width={600} // Increased logo size
+          width={600}  // Increased logo size
           height={200}
           className="mx-auto mb-8"
         />
