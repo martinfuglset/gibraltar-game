@@ -3,8 +3,13 @@
 import { useState, useEffect } from "react";
 
 export default function Session() {
-  const [stage, setStage] = useState(0); // 0 for first image, 1 for second image, 2 for grid
+  const [stage, setStage] = useState(0); // 0 for first image, 1 for second image, 2 for grid and boats
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes countdown in seconds
+  const [boatPositions, setBoatPositions] = useState([
+    { x: 0, y: "50%" },   // Start from the left edge (Boat 1)
+    { x: "100%", y: "20%" }, // Start from the right edge (Boat 2)
+    { x: "50%", y: "100%" }, // Start from the bottom edge (Boat 3)
+  ]);
 
   // Handle transitions between images and to the grid
   useEffect(() => {
@@ -23,6 +28,15 @@ export default function Session() {
       const countdown = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000); // Countdown every second
+
+      // Move the boats to the center over the 5 minutes
+      const progress = 1 - timeLeft / 300; // Progress from 0 to 1 over 300 seconds
+      setBoatPositions([
+        { x: `${50 * progress}%`, y: "50%" },   // Move to the center horizontally
+        { x: `${100 - 50 * progress}%`, y: "20%" }, // Move to the center from the right
+        { x: "50%", y: `${100 - 50 * progress}%` }, // Move to the center from the bottom
+      ]);
+
       return () => clearInterval(countdown);
     }
   }, [stage, timeLeft]);
@@ -61,6 +75,21 @@ export default function Session() {
               <div key={index} className="border border-gray-600 w-full h-full"></div>
             ))}
           </div>
+
+          {/* Moving Boats */}
+          {boatPositions.map((pos, index) => (
+            <div
+              key={index}
+              className="absolute"
+              style={{
+                left: pos.x,
+                top: pos.y,
+                transition: "left 1s linear, top 1s linear", // Smooth transitions
+              }}
+            >
+              🚤 {/* Emoji representing the boat */}
+            </div>
+          ))}
 
           {/* Timer */}
           <div className="absolute bottom-5 text-xl font-bold">
