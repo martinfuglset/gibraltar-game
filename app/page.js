@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Use Next.js router for navigation
 import Image from 'next/image';
 
-const apiRoot = 'https://api-vnbjtid72q-lz.a.run.app'; // Define the API root
-
 export default function Home() {
   const [churchName, setChurchName] = useState('');
   const router = useRouter(); // For routing to another page
@@ -23,22 +21,23 @@ export default function Home() {
       console.log("Sending data to the API...");
 
       // Make a POST request to the create-game endpoint
-      const response = await fetch(`${apiRoot}/create-game`, {
+      const response = await fetch(`/api/create-game`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           church: churchName,  // Send church name in the request body
-          start: timestamp,    // Send the timestamp
         }),
       });
 
       if (response.ok) {
         const data = await response.json();
         console.log("Game created:", data);
+        const { id } = data;
+
         // Redirect to another page after successful API request
-        router.push('/session');
+        router.push(`/session/${id}`);
       } else {
         console.error("Failed to create game");
       }
