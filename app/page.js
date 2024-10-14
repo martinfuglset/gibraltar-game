@@ -14,9 +14,6 @@ export default function Home() {
       return;
     }
 
-    // Generate a timestamp using the current date/time
-    const timestamp = new Date().toISOString();
-
     try {
       console.log("Sending data to the API...");
 
@@ -60,14 +57,15 @@ export default function Home() {
         />
 
         {/* Wrapper for Input and Button */}
-        <div className="max-w-md mx-auto space-y-4">
+        <div className="max-w-md mx-auto space-y-4 text-xl tracking-wide">
           {/* Input Field */}
           <input
             type="text"
             placeholder="CHURCH NAME"
             value={churchName}
-            onChange={(e) => setChurchName(e.target.value)} // Capture input
-            className="block w-full h-12 px-4 text-white text-center border border-white bg-transparent focus:outline-none font-stardos"
+            onChange={(e) => setChurchName(e.target.value.toUpperCase())} // Capture input and force uppercase
+            className="block w-full h-12 px-4 text-white text-center font-bold border border-white bg-transparent focus:outline-none font-stardos"
+            style={{ textTransform: 'uppercase' }} // Force uppercase display in CSS
           />
 
           {/* Launch Session Button */}
