@@ -6,12 +6,13 @@ import { db } from '../../../lib/firestore';
 import { Timestamp } from 'firebase-admin/firestore';
 
 export async function POST(request) {
-  const { church } = await request.json();
+  const { id } = await request.json();
 
-  const doc = await db.collection("games").add({
-    church: church,
-    state: 'not-started'
+  await db.collection("games").doc(id).update({
+    state: 'finished',
   });
+
+  // TODO calculate result here
   
-  return NextResponse.json({ id: doc.id });
+  return NextResponse.json({ result: "1" });
 }
