@@ -14,5 +14,5 @@ export async function POST(request) {
 
   // TODO calculate result here
   
-  return NextResponse.json({ result: "1" });
+  return NextResponse.json({ result: "11" });
 }

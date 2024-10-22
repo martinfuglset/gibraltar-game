@@ -63,33 +63,52 @@ const SessionPage = () => {
             <div className="mt-10">
               Question 1
             </div>
+            <input name="q1" type="number" />
+            
             <div className="mt-10">
               Question 2
             </div>
+            <input name="q1" type="number" />
+            
             <div className="mt-10">
               Question 3
             </div>
+            <input name="q1" type="number" />
+            
             <div className="mt-10">
               Question 4
             </div>
+            <input name="q1" type="number" />
+            
             <div className="mt-10">
               Question 5
             </div>
+            <input name="q1" type="number" />
+            
             <div className="mt-10">
               Question 6
             </div>
+            <input name="q1" type="number" />
+            
             <div className="mt-10">
               Question 7
             </div>
+            <input name="q1" type="number" />
+            
             <div className="mt-10">
               Question 8
             </div>
+            <input name="q1" type="number" />
+            
             <div className="mt-10">
               Question 9
             </div>
+            <input name="q1" type="number" />
+            
             <div className="mt-10">
               Question 10
             </div>
+            <input name="q1" type="number" />
           </div>
         </div>
       }

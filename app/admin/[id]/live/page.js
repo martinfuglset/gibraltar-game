@@ -44,11 +44,10 @@ const LivePage = () => {
             }),
           }).then(response => {
             if (response.status === 200) {
-              // both fail = 00
-              // both success = 11
-              // red success (red sinks) = 01
-              // blue success (blue sinks) = 10
-              router.push(`/admin/result/00`);
+              response.json().then(data => {
+                const result = data.result;
+                router.push(`/admin/result/${result}`);
+              });
             }
           });
           clearInterval(timer); // Clear the interval to stop the countdown

@@ -1,5 +1,5 @@
 export const calculateTimeLeft = (startTime) => {
-  const difference = +new Date(startTime.toDate()) + (0.5 * 60 * 1000) + 1000 - +new Date();
+  const difference = +new Date(startTime.toDate()) + (5 * 60 * 1000) + 1000 - +new Date();
   let timeLeft = {};
 
   if (difference > 0) {
