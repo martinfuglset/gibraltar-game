@@ -13,6 +13,13 @@ export async function POST(request) {
   });
 
   // TODO calculate result here
+  /*
+  for (i in 1..10) 
+  if more than 50% of submissions for question i are correct than add 1 point to the result
+  10 points is success
   
+  */
+
+
   return NextResponse.json({ result: "11" });
 }
