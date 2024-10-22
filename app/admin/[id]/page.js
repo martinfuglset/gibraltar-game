@@ -12,6 +12,7 @@ export default function SessionPage() {
 
   const [notFound, setNotFound] = useState(false);
   const [data, setData] = useState(null);
+  const [src, setSrc] = useState('');
   
   useEffect(() => {
     fetch(`/api/get-game?id=${id}`)
@@ -34,8 +35,7 @@ export default function SessionPage() {
 
       // get the domain from the request, including the protocol
       const domain = window.location.origin;
-      console.log(domain);
-      QRCode.toDataURL(`${domain}/session/${id}`)
+      QRCode.toDataURL(`${domain}/session/${id}`, { width: 800 })
         .then(url => setSrc(url))
         .catch(err => console.error(err));
   }, [id]);
@@ -45,8 +45,8 @@ export default function SessionPage() {
   }
 
   return (
-    <div>
-      <pre>{ data ? JSON.stringify(data, null, 2) : <Spinner /> }</pre>
+    <div className="h-screen flex items-center justify-center">
+      { src && <img src={src} alt="QR Code" /> }
     </div>
   );
 }

@@ -64,14 +64,14 @@ export default function Home() {
             placeholder="CHURCH NAME"
             value={churchName}
             onChange={(e) => setChurchName(e.target.value.toUpperCase())} // Capture input and force uppercase
-            className="block w-full h-12 px-4 text-white text-center font-bold border border-white bg-transparent focus:outline-none font-stardos"
+            className="block w-full h-12 px-4 text-white text-center font-bold border border-white bg-transparent focus:outline-none"
             style={{ textTransform: 'uppercase' }} // Force uppercase display in CSS
           />
 
           {/* Launch Session Button */}
           <button
             onClick={handleLaunchSession}
-            className="w-full h-12 text-black font-bold bg-white hover:bg-gray-300 transition duration-300 font-stardos"
+            className="w-full h-12 text-black font-bold bg-white hover:bg-gray-300 transition duration-300"
           >
             LAUNCH SESSION
           </button>
