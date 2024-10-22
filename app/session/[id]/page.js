@@ -6,6 +6,7 @@ import { db } from '@/lib/firestore-client';
 import { doc, onSnapshot } from "firebase/firestore";
 import Spinner from '@/app/components/spinner';
 import { calculateTimeLeft } from '@/utils/timeleft';
+import { getTranslation } from '@/utils/i18n';
 
 const SessionPage = () => {
   const { id } = useParams();
@@ -110,17 +111,17 @@ const SessionPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">
       { (gameData && gameData.state == "started" && team) && 
-        <div className="text-center flex-col mb-20 w-full px-4">
+        <div className="text-center flex-col mb-20 w-full px-4 max-w-screen-md">
           <p className="text-4xl fixed px-10 py-10 w-full left-0 top-0 bg-black">
             {timeLeft.minutes}:{timeLeft.seconds < 10 ? `0${timeLeft.seconds}` : timeLeft.seconds}
           </p>
           { !hasSubmitted && (
             <div className="mt-40"> 
               {Array.from({ length: 10 }, (_, i) => (
-                <div key={i} className="mt-10 text-2xl">
-                  <div>Question {i + 1}</div>
+                <div key={i} className="mt-20 text-2xl flex flex-col items-center justify-center">
+                  <p>{ getTranslation(`q${i + 1}`, gameData.language) }</p>
                   <input
-                    className="text-black text-xl w-full text-center py-2"
+                    className="block w-full max-w-56 h-12 px-4 text-white text-center font-bold border border-white bg-transparent focus:outline-none"
                     name={`q${i + 1}`}
                     type="number"
                     pattern="[0-9]*"
@@ -131,15 +132,15 @@ const SessionPage = () => {
               ))}
               <button
                 onClick={handleSubmit}
-                className="uppercase text-2xl bg-red-400 w-full py-2 rounded-lg mt-20"
+                className={`uppercase text-2xl w-full py-2 rounded-lg mt-20 ${team === 'red' ? 'bg-red-400' : 'bg-blue-400'}`}
               >
-                Submit answers
+                { getTranslation('submit', gameData.language) }
               </button>
             </div>
           )}
           { hasSubmitted && 
             <div className="mt-20 text-4xl">
-              <p>Waiting for results</p>
+              <p className="uppercase">{ getTranslation('waitingForResults', gameData.language) }</p>
             </div>
           }
         </div>
@@ -161,8 +162,8 @@ const SessionPage = () => {
           }
           { (team && gameData.state == "not-started") && (
               <div className="flex flex-col text-center">
-                <h2 className="uppercase text-4xl">Waiting for the game to start</h2>
-                <p className="text-3xl mt-6">You are on team <span className="uppercase">{team}</span></p>
+                <h2 className="uppercase text-4xl">{ getTranslation('waitingForStart', gameData.language) }</h2>
+                <p className="text-3xl mt-6 uppercase">Team {team}</p>
               </div>
             )
           }

@@ -5,7 +5,10 @@ import { useRouter } from 'next/navigation'; // Use Next.js router for navigatio
 import Image from 'next/image';
 
 export default function Home() {
+  // todo add language selector for session
+  // 
   const [churchName, setChurchName] = useState('');
+  const [language, setLanguage] = useState('nb');
   const router = useRouter(); // For routing to another page
 
   const handleLaunchSession = async () => {
@@ -24,7 +27,8 @@ export default function Home() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          church: churchName,  // Send church name in the request body
+          church: churchName, 
+          language: language,
         }),
       });
 
@@ -67,7 +71,14 @@ export default function Home() {
             className="block w-full h-12 px-4 text-white text-center font-bold border border-white bg-transparent focus:outline-none"
             style={{ textTransform: 'uppercase' }} // Force uppercase display in CSS
           />
-
+          <select
+            className="block w-full h-12 px-4 text-white text-center uppercase font-bold border border-white bg-transparent focus:outline-none"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            <option value="nb">Norsk</option>
+            <option value="en">English</option>
+          </select>
           {/* Launch Session Button */}
           <button
             onClick={handleLaunchSession}

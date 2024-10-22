@@ -46,7 +46,7 @@ const LivePage = () => {
             if (response.status === 200) {
               response.json().then(data => {
                 const result = data.result;
-                router.push(`/admin/result/${result}`);
+                router.push(`/admin/${id}/result/${result}`);
               });
             }
           });

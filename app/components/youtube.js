@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-export default function YouTubePlayer({ id }) {
+export default function YouTubePlayer({ id, onFinished }) {
   useEffect(() => {
     let player;
 
@@ -19,6 +19,11 @@ export default function YouTubePlayer({ id }) {
         events: {
           'onReady': (event) => {
             event.target.playVideo();
+          },
+          'onStateChange': (event) => {
+            if (event.data === window.YT.PlayerState.ENDED) {
+              onFinished && onFinished();
+            }
           },
         }
       });
@@ -40,7 +45,7 @@ export default function YouTubePlayer({ id }) {
         player.destroy();
       }
     };
-  }, [id]);
+  }, [id, onFinished]);
 
   return (
     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>

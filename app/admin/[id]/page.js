@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation'; // Use Next.js router for navigation
 import YouTubePlayer from '@/app/components/youtube';
 import QRCode from 'qrcode';
+import { getTranslation } from '@/utils/i18n';
 
 export default function SessionPage() {
   const { id } = useParams();
@@ -77,10 +78,10 @@ export default function SessionPage() {
         <YouTubePlayer id="-QIl20iamS8" className="absolute inset-0" />
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1/2 h-full items-center justify-center flex flex-col">
           { src && <img src={src} alt="QR Code" /> }
-          <h2 className="uppercase text-5xl mt-10">Scan QR to begin</h2>
+          <h2 className="uppercase text-5xl mt-10">{ getTranslation('scanToStart', data?.language) }</h2>
         </div>
-        <button className="absolute bottom-0 right-0 bg-black w-96 text-4xl h-20 border-white cursor-pointer" onClick={startGame}>
-          START GAME
+        <button className="absolute bottom-0 right-0 bg-black w-96 text-4xl h-20 border-white cursor-pointer uppercase" onClick={startGame}>
+          { getTranslation('startGame', data?.language) }
         </button>
       </div>
     </div>
