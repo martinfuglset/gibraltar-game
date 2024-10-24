@@ -6,8 +6,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        stardos: ['"Stardos Stencil"', "sans-serif"], // Add Stardos Stencil
+        stardos: ['"Stardos Stencil"', "sans-serif"],
+        spline: ["Spline Sans", "sans-serif"],
       },
+      colors: {
+        'beige': '#B07947',
+        'yellow': '#FFF6C1',
+        'brown': '#6C4A2A',
+        'brgr1': '#AE9558',
+        'brgr2': '#483E24',
+      }
     },
   },
   plugins: [],

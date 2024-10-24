@@ -78,6 +78,14 @@ export default function Home() {
           >
             <option value="nb">Norsk</option>
             <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="fr">Français</option>
+            <option value="it">Italiano</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
+            <option value="pt">Português</option>
+            <option value="ro">Română</option>
+            <option value="ru">Русский</option>
           </select>
           {/* Launch Session Button */}
           <button

@@ -109,7 +109,7 @@ const SessionPage = () => {
     </div>;
   }
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center font-stardos">
       { (gameData && gameData.state == "started" && team) && 
         <div className="text-center flex-col mb-20 w-full px-4 max-w-screen-md">
           <p className="text-4xl fixed px-10 py-10 w-full left-0 top-0 bg-black">
@@ -134,13 +134,13 @@ const SessionPage = () => {
                 onClick={handleSubmit}
                 className={`uppercase text-2xl w-full py-2 rounded-lg mt-20 ${team === 'red' ? 'bg-red-400' : 'bg-blue-400'}`}
               >
-                { getTranslation('submit', gameData.language) }
+                Submit
               </button>
             </div>
           )}
           { hasSubmitted && 
             <div className="mt-20 text-4xl">
-              <p className="uppercase">{ getTranslation('waitingForResults', gameData.language) }</p>
+              <p className="uppercase">Waiting for the results</p>
             </div>
           }
         </div>
@@ -151,18 +151,18 @@ const SessionPage = () => {
           {!team && (
             <div className="flex flex-col text-center">
               <h2 className="uppercase text-4xl">Select your team</h2>
-              <button onClick={() => selectTeam("red")} className="bg-red-400 mt-6 h-32 text-3xl uppercase w-96 cursor-pointer">
-                Team Red
+              <button onClick={() => selectTeam("red")} className="cursor-pointer">
+                <img src="/red.png" alt="Red Team" />
               </button>
-              <button onClick={() => selectTeam("blue")} className="bg-blue-400 mt-6 h-32 text-3xl uppercase w-96 cursor-pointer">
-                Team Blue
+              <button onClick={() => selectTeam("blue")} className="cursor-pointer">
+              <img src="/blue.png" alt="Blue Team" />
               </button>
             </div>
             )
           }
           { (team && gameData.state == "not-started") && (
-              <div className="flex flex-col text-center">
-                <h2 className="uppercase text-4xl">{ getTranslation('waitingForStart', gameData.language) }</h2>
+              <div className="flex flex-col text-center py-4">
+                <h2 className="uppercase text-4xl">Waiting for the game to start</h2>
                 <p className="text-3xl mt-6 uppercase">Team {team}</p>
               </div>
             )

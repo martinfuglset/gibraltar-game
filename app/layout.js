@@ -14,8 +14,9 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&display=swap"
           rel="stylesheet"
         />
+        <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300..700&display=swap" rel="stylesheet"></link>
       </head>
-      <body className="font-stardos">
+      <body className="font-spline">
         {children}
       </body>
     </html>
